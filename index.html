@@ -71,6 +71,7 @@
         <!-- Add more languages here -->
     </select>
     <textarea id="translatedText" placeholder="অনুবাদ এখানে প্রদর্শিত হবে..." readonly></textarea>
+    <button onclick="speak()">উচ্চারণ করুন</button>
 
     <script>
         function translateText() {
@@ -93,6 +94,11 @@
         $('#translatedText').on('blur', function () {
             this.style.height = '50px';
         });
+
+        function speak() {
+            var utterance = new SpeechSynthesisUtterance(document.getElementById('translatedText').value);
+            window.speechSynthesis.speak(utterance);
+        }
     </script>
 </body>
 </html>
