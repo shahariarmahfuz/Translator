@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/3.1.2/assets/css/emojione.min.css" integrity="sha512-W//T3fU18zCTK1hZvYhTcfkO4YVjA6e8ZnAKwDy2Z4b2DXMjv4mD+oyRx4N76JHz8d62qXG+O9m+Is3hbPjRKw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Your CSS styles go here */
+      body {
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        h2 {
+            color: #fff;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000;
+        }
+        textarea, select {
+            width: 300px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: none;
+            overflow: auto;
+            background: rgba( 255, 255, 255, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 4px );
+            -webkit-backdrop-filter: blur( 4px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            color: #11ff00;
+        }
+        #translatedText {
+            background-color: rgba( 255, 255, 255, 0.25 );
+            height: 50px; /* Fixed height to prevent resizing */
+        }
+    </style>
+</head>
+<body>
+    <h2>লাইভ ট্রান্সলেটর</h2>
+    <select id="sourceLanguageSelect">
+        <option value="auto">ভাষা শনাক্ত করুন</option>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="bn">বাংলা</option>
+        <!-- Add more languages here -->
+    </select>
+    <textarea id="sourceText" placeholder="এখানে লিখুন..." oninput="translateText()" style="height: 50px;"></textarea>
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="bn">বাংলা</option>
+        <!-- Add more languages here -->
+    </select>
+    <textarea id="translatedText" placeholder="অনুবাদ এখানে প্রদর্শিত হবে..." readonly></textarea>
+
+    <script>
+        function translateText() {
+            var sourceText = $('#sourceText').val();
+            var sourceLanguage = $('#sourceLanguageSelect').val();
+            var targetLanguage = $('#languageSelect').val();
+            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + sourceLanguage + "&tl=" + targetLanguage + "&dt=t&q=" + encodeURI(sourceText);
+            $.get(url, function(data, status){
+                var translatedText = data[0][0][0];
+                $('#translatedText').val(translatedText);
+                $('#sourceText').css('height', 'auto');
+                $('#sourceText').height($('#sourceText').prop('scrollHeight'));
+                $('#translatedText').css('height', 'auto');
+                $('#translatedText').height($('#sourceText').prop('scrollHeight')); // Set height of translated text area to match source text area
+            });
+        }
+        $('#sourceText').on('blur', function () {
+            this.style.height = '50px';
+        });
+        $('#translatedText').on('blur', function () {
+            this.style.height = '50px';
+        });
+    </script>
+</body>
+  </html>
+  
