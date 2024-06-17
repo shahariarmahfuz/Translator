@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/3.1.2/assets/css/emojione.min.css" integrity="sha512-W//T3fU18zCTK1hZvYhTcfkO4YVjA6e8ZnAKwDy2Z4b2DXMjv4mD+oyRx4N76JHz8d62qXG+O9m+Is3hbPjRKw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Your CSS styles go here */
-      body {
+        body {
             background-color: #000;
             font-family: Arial, sans-serif;
             display: flex;
@@ -41,6 +41,14 @@
         #translatedText {
             background-color: rgba( 255, 255, 255, 0.25 );
             height: 50px; /* Fixed height to prevent resizing */
+        }
+        @media only screen and (max-width: 600px) {
+            body {
+                font-size: 18px;
+            }
+            textarea, select {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -87,5 +95,4 @@
         });
     </script>
 </body>
-  </html>
-  
+</html>
